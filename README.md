@@ -22,7 +22,8 @@ GTK4/libadwaita app, so it picks up your Omarchy theme, and it also ships a comm
 | Upload a sound to a pad (MP3 → 48 kHz, plays on the unit) | ✅ works |
 | Rename a pad, change pad colour | ✅ works |
 | Save a pad's sound to WAV (download from the unit) | ✅ works |
-| Clear pads, rename banks | ⚠️ untested |
+| Clear a pad | ✅ works |
+| Rename banks | ⚠️ untested |
 | Effects read/write, settings backup/restore, clock sync | ⚠️ untested |
 | Restart unit | ⚠️ untested, likely broken (uses the same unanswered command type as the version query) |
 
