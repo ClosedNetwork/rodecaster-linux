@@ -25,7 +25,7 @@ GTK4/libadwaita app, so it picks up your Omarchy theme, and it also ships a comm
 | Clear a pad | ✅ works |
 | Rename a bank | ✅ works |
 | Effects read/write, settings backup/restore, clock sync | ⚠️ untested |
-| Restart unit | ⚠️ untested, likely broken (uses the same unanswered command type as the version query) |
+| Restart unit | ⛔ removed: the restart command reboots the unit into its **bootloader** ("firmware update in progress" screen). Recover by power-cycling or with RØDE's official app |
 
 Try untested write features on pads/settings you can afford to lose, and back up your settings
 first once that feature is confirmed.
@@ -37,7 +37,7 @@ first once that feature is confirmed.
 | **Soundboard** | Browse 8 banks × 8 pads and rename banks. Edit pad name, colour, playback style (Latch/Pause/Replay/Play/!@#*/Trash-talk) and loop. Load any audio onto a pad: WAV, MP3, FLAC, OGG and anything else ffmpeg reads, resampled to 48 kHz, with optional −16 LUFS normalisation. You can also drag and drop files onto pads. Save a pad's sound to WAV, clear a pad, clear a bank, restore factory sounds, and see free memory. |
 | **Effects** | Read and write the processing block for Mic 1–4 and the master channel: high-pass, gate, de-esser, compressor, APHEX exciter, Big Bottom and the enables. Toggle effects-edit mode, reset to defaults, and save/load presets as JSON. Values are the raw numbers the unit stores. |
 | **Recordings** | Enter or leave Podcast Transfer Mode, then find and mount the `RODECASTER` card. List recordings and export them to WAV, FLAC or MP3 with loudness presets. Multitrack recordings can be split into one file per source (mix, Mics 1–4, USB, TRRS, Bluetooth, Sounds). Split files are stitched back together. |
-| **Device** | Shows connection details, syncs the clock to the computer (also automatically on connect), backs up and restores `.rcpsettings` files (compatible with RØDE's app), extracts factory sounds, and restarts the unit. |
+| **Device** | Shows connection details, syncs the clock to the computer (also automatically on connect), backs up and restores `.rcpsettings` files (compatible with RØDE's app), and extracts factory sounds. |
 
 **Not included:** firmware updates. Flashing over a reverse-engineered protocol risks bricking
 the unit, so update it once from macOS/Windows instead. The live on-screen mirror of the
@@ -55,6 +55,21 @@ Unplug and replug the USB cable once. Then launch **RØDECaster Pro** from the l
 
 To install manually, run `makepkg -si` in this folder. The dependencies are `python-gobject`,
 `gtk4`, `libadwaita` and `ffmpeg`, plus `udisks2` if you want the card mounted for you.
+
+## Install (Debian / Ubuntu)
+
+Needs libadwaita 1.5 or newer: **Ubuntu 24.04+** or **Debian 13 (trixie)+**. Debian 12 is too old.
+
+Download `rodecaster-linux_<version>_all.deb` from the
+[Releases page](https://github.com/ClosedNetwork/rodecaster-linux/releases), then:
+
+```bash
+sudo apt install ./rodecaster-linux_*_all.deb   # pulls in python3-gi, GTK4, libadwaita, ffmpeg
+```
+
+Unplug and replug the USB cable once, then launch **RØDECaster Pro** from your app menu or run
+`rodecaster`. To build the package yourself, run `packaging/deb/build-deb.sh`; it writes the
+`.deb` to `dist/`.
 
 ### Permissions
 
