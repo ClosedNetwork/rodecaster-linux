@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=RØDECaster Pro
+GenericName=Podcast Console Companion
+Comment=Manage sound pads, effects and recordings on a RØDECaster Pro (gen 1)
+Exec=rodecaster
+Icon=io.github.rodecaster_linux.RodeCasterPro
+Terminal=false
+Categories=AudioVideo;Audio;Mixer;
+Keywords=rode;rodecaster;podcast;soundboard;pads;
+StartupNotify=true
+StartupWMClass=io.github.rodecaster_linux.RodeCasterPro

@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rodecaster-linux"
+version = "0.1.0"
+description = "Unofficial Linux companion app for the original RØDECaster Pro (gen 1)"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+dependencies = []  # PyGObject, GTK4 and libadwaita come from the distro (python-gobject, gtk4, libadwaita)
+
+[project.scripts]
+rodecaster-cli = "rodecaster.cli:main"
+
+[project.gui-scripts]
+rodecaster = "rodecaster.ui.app:main"
+
+[tool.setuptools.packages.find]
+include = ["rodecaster*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
