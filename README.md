@@ -20,7 +20,8 @@ GTK4/libadwaita app, so it picks up your Omarchy theme, and it also ships a comm
 | Leave Podcast Transfer Mode from the app | ✅ works |
 | Firmware version display | ❌ the unit doesn't answer the version query; shows "unknown" |
 | Upload a sound to a pad (MP3 → 48 kHz, plays on the unit) | ✅ works |
-| Clear pads, save pad sound to WAV, rename pads/banks, change colours | ⚠️ untested |
+| Rename a pad, change pad colour | ✅ works |
+| Clear pads, save pad sound to WAV, rename banks | ⚠️ untested |
 | Effects read/write, settings backup/restore, clock sync | ⚠️ untested |
 | Restart unit | ⚠️ untested, likely broken (uses the same unanswered command type as the version query) |
 
