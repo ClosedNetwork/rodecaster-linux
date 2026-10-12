@@ -2,7 +2,7 @@
 # Build from this directory:  makepkg -si
 pkgname=rodecaster-linux
 pkgver=0.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Unofficial Linux companion app for the original RØDECaster Pro (gen 1)"
 arch=('any')
 url="https://github.com/ClosedNetwork/rodecaster-linux"

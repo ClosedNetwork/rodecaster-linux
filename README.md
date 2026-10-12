@@ -7,8 +7,24 @@ RØDE's macOS/Windows "RØDECaster Pro" app v2.1.2 on Arch Linux and Omarchy. It
 GTK4/libadwaita app, so it picks up your Omarchy theme, and it also ships a command-line tool.
 
 > Not affiliated with RØDE. The protocol was reconstructed from the macOS app's binary (see
-> [PROTOCOL.md](PROTOCOL.md)). **It has not yet been tested against a physical unit.** Please run
-> the validation checklist in PROTOCOL.md before trusting it with a live show.
+> [PROTOCOL.md](PROTOCOL.md)) and is now being checked against a real gen-1 unit (firmware 2.x).
+
+### Hardware test status
+
+| Feature | Status on a real unit |
+|---------|-----------------------|
+| Detect and connect (normal mode and USB transfer mode) | ✅ works |
+| Read status, free memory, bank count, bank names, pad name/colour/mode/size | ✅ works |
+| Enter Podcast Transfer Mode from the app | ✅ works |
+| Browse and export recordings from the card | ✅ works |
+| Leave Podcast Transfer Mode from the app | ✅ works |
+| Firmware version display | ❌ the unit doesn't answer the version query; shows "unknown" |
+| Upload/clear pad sounds, rename pads/banks, change colours | ⚠️ untested |
+| Effects read/write, settings backup/restore, clock sync | ⚠️ untested |
+| Restart unit | ⚠️ untested, likely broken (uses the same unanswered command type as the version query) |
+
+Try untested write features on pads/settings you can afford to lose, and back up your settings
+first once that feature is confirmed.
 
 ## What it does
 
@@ -17,7 +33,7 @@ GTK4/libadwaita app, so it picks up your Omarchy theme, and it also ships a comm
 | **Soundboard** | Browse 8 banks × 8 pads and rename banks. Edit pad name, colour, playback style (Latch/Pause/Replay/Play/!@#*/Trash-talk) and loop. Load any audio onto a pad: WAV, MP3, FLAC, OGG and anything else ffmpeg reads, resampled to 48 kHz, with optional −16 LUFS normalisation. You can also drag and drop files onto pads. Save a pad's sound to WAV, clear a pad, clear a bank, restore factory sounds, and see free memory. |
 | **Effects** | Read and write the processing block for Mic 1–4 and the master channel: high-pass, gate, de-esser, compressor, APHEX exciter, Big Bottom and the enables. Toggle effects-edit mode, reset to defaults, and save/load presets as JSON. Values are the raw numbers the unit stores. |
 | **Recordings** | Enter or leave Podcast Transfer Mode, then find and mount the `RODECASTER` card. List recordings and export them to WAV, FLAC or MP3 with loudness presets. Multitrack recordings can be split into one file per source (mix, Mics 1–4, USB, TRRS, Bluetooth, Sounds). Split files are stitched back together. |
-| **Device** | Shows firmware version, syncs the clock to the computer (also automatically on connect), backs up and restores `.rcpsettings` files (compatible with RØDE's app), extracts factory sounds, and restarts the unit. |
+| **Device** | Shows connection details, syncs the clock to the computer (also automatically on connect), backs up and restores `.rcpsettings` files (compatible with RØDE's app), extracts factory sounds, and restarts the unit. |
 
 **Not included:** firmware updates. Flashing over a reverse-engineered protocol risks bricking
 the unit, so update it once from macOS/Windows instead. The live on-screen mirror of the

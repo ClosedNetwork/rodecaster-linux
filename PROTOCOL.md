@@ -37,7 +37,10 @@ is the report ID.
 > report-ID byte in the payload. GET_REPORT on reports 1 and 4 stalls. The report-5/4 command
 > channel *does* work in normal mode: status (`0x18`), free memory (`0x08`), bank count, bank
 > names and pad reads all return sensible data. Reading status clears bit1. In transfer mode
-> the unit answers nothing on HID.
+> the simple `V`/`I` queries also go unanswered, but the command channel still works: the
+> group-1 "leave transfer mode" action switches the unit back to normal mode (confirmed; the
+> unit re-enumerates as `0x0011` about 3 s later). "Enter transfer mode" from normal mode is
+> confirmed too.
 
 | Cmd | Meaning | Reply |
 |-----|---------|-------|

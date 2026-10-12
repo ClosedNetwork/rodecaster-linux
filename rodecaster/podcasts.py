@@ -11,6 +11,7 @@ from __future__ import annotations
 import getpass
 import glob
 import json
+import logging
 import os
 import re
 import shutil
@@ -18,6 +19,8 @@ import subprocess
 from dataclasses import dataclass, field
 
 from . import audio
+
+log = logging.getLogger(__name__)
 
 PODCAST_DIR = os.path.join("RODE", "PODCASTS")
 
@@ -113,9 +116,11 @@ def mount_card(dev: BlockDev) -> str:
 
 
 def unmount_card(mountpoint: str) -> None:
-    if shutil.which("udisksctl"):
-        subprocess.run(["udisksctl", "unmount", "-p", _mount_source(mountpoint) or mountpoint],
-                       capture_output=True, text=True)
+    src = _mount_source(mountpoint)
+    if src and shutil.which("udisksctl"):
+        out = subprocess.run(["udisksctl", "unmount", "-b", src], capture_output=True, text=True)
+        if out.returncode != 0:
+            log.warning("unmount %s failed: %s", src, out.stderr.strip())
 
 
 def _mount_source(mountpoint: str) -> str | None:
