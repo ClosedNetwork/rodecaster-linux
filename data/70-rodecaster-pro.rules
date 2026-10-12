@@ -1,5 +1,5 @@
 # RØDECaster Pro (gen 1): give the logged-in user access to the companion HID interface.
-# 19f7:0011 normal mode, 19f7:0012 alternate mode, 19f7:0019 firmware-update mode
+# 19f7:0011 normal mode, 19f7:0012 bootloader, 19f7:0019 USB transfer mode
 SUBSYSTEM=="hidraw", ATTRS{idVendor}=="19f7", ATTRS{idProduct}=="0011", TAG+="uaccess"
 SUBSYSTEM=="hidraw", ATTRS{idVendor}=="19f7", ATTRS{idProduct}=="0012", TAG+="uaccess"
 SUBSYSTEM=="hidraw", ATTRS{idVendor}=="19f7", ATTRS{idProduct}=="0019", TAG+="uaccess"

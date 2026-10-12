@@ -11,7 +11,8 @@ Each item is marked as one of:
 
 ## Transport (observed)
 
-- USB vendor `0x19F7`. The app matches product IDs `0x0011`, `0x0012` and `0x0019`
+- USB vendor `0x19F7`. The app matches product IDs `0x0011`, `0x0012` (the **bootloader**, confirmed: USB
+  product string "RØDECaster Pro Bootloader", HID reports 1/2 plus a 1024-byte report 3 only) and `0x0019`
   (`FUN_100003f90`, `FUN_100004140`). `0x0019` is the unit's USB transfer mode (USB product string
   "RODECaster Pro USB Transfer Mode"; the microSD card is exposed as mass storage).
 - All control goes through **one HID interface** using numbered reports. The app only ever
@@ -46,7 +47,7 @@ is the report ID.
 |-----|---------|-------|
 | `V` (0x56) | firmware version | `'A'`, version = `b3 . (b2>>4) . (b2&15)` (observed; `'E'` means unavailable) |
 | `I` (0x49) | identify | `'A'`, version as above, plus u32 at bytes 4–7 (observed; meaning unknown) |
-| `R` (0x52) | reset/restart | write only; the app doesn't wait for a reply (observed) |
+| `R` (0x52) | reset/restart | write only. **On a real unit in normal mode this reboots into the bootloader** (USB `0x0012`, "RØDECaster Pro Bootloader", red "firmware update in progress" screen). Not sent by this app. |
 | `E`, `P` | erase page / program | bootloader only, used by the firmware updater (observed; **not implemented**) |
 
 ## Command channel (report 5 / 4), `FUN_10028eb10`

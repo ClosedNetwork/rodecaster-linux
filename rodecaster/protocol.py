@@ -24,10 +24,12 @@ from enum import IntEnum
 VENDOR_ID = 0x19F7
 
 PID_NORMAL = 0x0011        # RØDECaster Pro in normal operation
-PID_ALT = 0x0012           # alternate mode accepted by the app (seen with transfer mode)
+# 0x0012 is the BOOTLOADER ("RØDECaster Pro Bootloader", confirmed on a real unit). The app
+# must never talk to it: it only accepts firmware erase/program commands.
+PID_BOOTLOADER = 0x0012
 PID_TRANSFER = 0x0019      # USB transfer mode: microSD card exposed as mass storage
                            # (device reports "RODECaster Pro USB Transfer Mode")
-KNOWN_PIDS = {PID_NORMAL: "normal", PID_ALT: "alternate", PID_TRANSFER: "USB transfer mode"}
+KNOWN_PIDS = {PID_NORMAL: "normal", PID_TRANSFER: "USB transfer mode"}
 
 # Report IDs
 RID_SIMPLE_OUT = 2
@@ -54,7 +56,7 @@ class Simple(IntEnum):
     """Single-letter commands on report 2 (answered on report 1)."""
     VERSION = ord("V")
     IDENTIFY = ord("I")
-    RESET = ord("R")
+    RESET = ord("R")        # reboots a gen-1 unit INTO THE BOOTLOADER; never sent by this app
     # Bootloader-only (documented, deliberately not exposed by the app):
     ERASE_PAGE = ord("E")
     PROGRAM = ord("P")

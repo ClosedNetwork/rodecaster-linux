@@ -1,4 +1,4 @@
-"""Device page: info, clock, settings backup/restore, factory sounds, reboot."""
+"""Device page: info, clock, settings backup/restore, factory sounds."""
 
 from __future__ import annotations
 
@@ -65,11 +65,6 @@ class DevicePage(Adw.PreferencesPage):
 
         a = Adw.PreferencesGroup(title="Maintenance")
         self.add(a)
-        rb = Adw.ActionRow(title="Restart the unit")
-        self.reboot_btn = Gtk.Button(label="Restart", valign=Gtk.Align.CENTER, css_classes=["destructive-action"])
-        self.reboot_btn.connect("clicked", self._reboot)
-        rb.add_suffix(self.reboot_btn)
-        a.add(rb)
         a.add(Adw.ActionRow(title="Firmware updates",
                             subtitle="Not supported on Linux. Update with RØDE's app on macOS/Windows; "
                                      "the unit keeps working with this app afterwards."))
@@ -81,7 +76,7 @@ class DevicePage(Adw.PreferencesPage):
     def refresh(self):
         rc = self.ctl.rc
         on = rc is not None
-        for w in (self.sync_btn, self.backup_btn, self.restore_btn, self.reboot_btn):
+        for w in (self.sync_btn, self.backup_btn, self.restore_btn):
             w.set_sensitive(on and not (rc and rc.in_transfer_mode))
         if on:
             i = rc.info
@@ -153,8 +148,3 @@ class DevicePage(Adw.PreferencesPage):
             self.refresh()
             self.win.toast("Factory sounds extracted")
         dlg.open(self.win, None, done)
-
-    def _reboot(self, *_):
-        confirm(self.win, "Restart the unit?", "Make sure it is not recording.", "Restart",
-                lambda: self.ctl.device_call("reboot", done=lambda _r: self.win.toast("Restart requested")),
-                destructive=True)

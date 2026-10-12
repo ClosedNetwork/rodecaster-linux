@@ -17,6 +17,9 @@ from ..transport import DeviceNotFound, HidrawTransport, TransportError, enumera
 
 log = logging.getLogger(__name__)
 
+BOOTLOADER_MSG = ("unit is in bootloader (firmware-update) mode. Switch it off and on again; "
+                  "if it stays there, recover it with RØDE's official app")
+
 
 class Controller(GObject.Object):
     __gsignals__ = {
@@ -42,6 +45,7 @@ class Controller(GObject.Object):
         self._busy = 0
         self._inflight = 0
         self._stop = False
+        self._bootloader_seen = False
         self.cancel_event = threading.Event()
         self._worker = threading.Thread(target=self._run, name="rodecaster-io", daemon=True)
         self._worker.start()
@@ -120,7 +124,14 @@ class Controller(GObject.Object):
             dev.preload_demo()
             self._open(lambda: RodeCaster(SimulatedTransport(dev)))
             return
-        if not any(d.product_id in P.KNOWN_PIDS for d in enumerate_hidraw()):
+        devs = enumerate_hidraw()
+        if any(d.product_id == P.PID_BOOTLOADER for d in devs):
+            if not self._bootloader_seen:
+                self._bootloader_seen = True
+                self.emit("disconnected", BOOTLOADER_MSG)
+            return
+        self._bootloader_seen = False
+        if not any(d.product_id in P.KNOWN_PIDS for d in devs):
             return
 
         def opener():

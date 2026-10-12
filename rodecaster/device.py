@@ -161,11 +161,6 @@ class RodeCaster:
             self.status()
         return self.info
 
-    def reboot(self) -> None:
-        """The app only writes 'R'; no reply is awaited."""
-        with self.lock:
-            self.t.write_report(P.build_simple(P.Simple.RESET))
-
     def status(self) -> int:
         return self.read(P.Cmd.STATUS)[0]
 

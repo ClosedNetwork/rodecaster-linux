@@ -138,7 +138,3 @@ def test_download_empty_pad_errors(rig):
     with pytest.raises(DeviceError):
         rc.download_pcm(P.pad_address(0, 4))
 
-
-def test_reboot_does_not_wait(rig):
-    _dev, rc = rig
-    assert rc.reboot() is None
